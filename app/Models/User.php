@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -23,4 +23,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /*
+     * Relacionamento um para muitos
+     * Um Usuário tem um ou muitos Posts
+     */
+
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post');
+    }
 }

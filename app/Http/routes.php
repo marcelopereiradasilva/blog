@@ -1,5 +1,30 @@
 <?php
 
+use  App\Models\User;
+use App\Models\Post;
+
+Route::get('/users_posts', function (){
+    $users = User::all();
+
+    $users = User::all();
+    foreach ($users as $user) {
+        echo "<h1>{$user->name}</h1>";
+        echo "<ul>";
+        foreach ($user->posts as $post) {
+            echo "<li>{$post->title}</li>";
+
+            if ( count($post->tags) > 0 )
+            {
+                echo "Tags:<ol>";
+                foreach ($post->tags as $tag) {
+                    echo "<li>$tag->title</li>";
+                }
+                echo "</ol>";
+            }
+        }
+        echo "</ul>";
+    }
+});
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -12,11 +37,17 @@
 */
 
 Route::get('/', function () {
-    return "Hello Word";
+    $users = DB::table('users')
+        ->where('name', 'like', 'T%')
+        ->get();
 });
 
-Route::
+Route::get('/users', 'UserController@getAll');
 
+Route::controller("user", "UserController");
+
+//Resource:
+Route::resource('user', 'UserController');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -31,3 +62,4 @@ Route::
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
