@@ -8,3 +8,5 @@ Route::get('routes', function(){
     \Artisan::call('route.list');
     return "<pre>".\Artisan::output();
 });
+
+Route::get('/posts/last/{n?}', 'PostController@last');
